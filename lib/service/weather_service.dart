@@ -17,7 +17,8 @@ class WeatherAppService {
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       final weatherData = WeatherData.fromJson(data);
-      Provider.of<WeatherProvider>(context, listen: false).setWeatherData(weatherData);
+      Provider.of<WeatherProvider>(context, listen: false)
+          .setWeatherData(weatherData);
     } else {
       throw Exception('Bir hata oluştu.');
     }
