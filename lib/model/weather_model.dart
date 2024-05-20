@@ -1,18 +1,23 @@
-class WeatherAppModel {
-  final String description;
+class WeatherData {
   final double temperature;
-  final String cityName;
+  final int humidity;
+  final double windSpeed;
+  final String description;
 
-  WeatherAppModel(
-      {required this.description,
-      required this.temperature,
-      required this.cityName});
+  WeatherData({
+    required this.temperature,
+    required this.humidity,
+    required this.windSpeed,
+    required this.description,
+  });
 
-  factory WeatherAppModel.fromJson(Map<String, dynamic> json) {
-    return WeatherAppModel(
+  factory WeatherData.fromJson(Map<String, dynamic> json) {
+    return WeatherData(
+      temperature: json['main']['temp'], // Sıcaklık zaten Celsius
+      humidity: json['main']['humidity'],
+      windSpeed: json['wind']['speed'],
       description: json['weather'][0]['description'],
-      temperature: json['main']['temp'],
-      cityName: json['name'],
     );
   }
 }
+
