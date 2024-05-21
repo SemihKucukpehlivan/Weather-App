@@ -1,9 +1,8 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_app/providers/weather_provider.dart';
 import 'package:weather_app/service/weather_service.dart';
+import 'package:weather_app/view/constants/text_style_const.dart';
 import 'package:weather_app/view/widgets/background.dart';
 import 'package:weather_app/view/widgets/blur_card.dart';
 import 'package:weather_app/view/widgets/weather_icon.dart';
@@ -46,11 +45,7 @@ class _WeatherMainScreenState extends State<WeatherMainScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text(
-                          city!,
-                          style: const TextStyle(
-                              fontSize: 38, color: Colors.white),
-                        ),
+                        Text(city!, style: TextStyleConst.cityLabelTextStyle),
                         Center(
                           child: Column(
                             children: [
@@ -59,16 +54,13 @@ class _WeatherMainScreenState extends State<WeatherMainScreen> {
                               ),
                               Text(
                                 ' ${weatherData.temperature.truncate()}°',
-                                style: const TextStyle(
-                                    fontSize: 90,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
+                                style: TextStyleConst.temperatureLabelTextStyle,
                               ),
                               Text(
-                                capitalizeFirstLetters(weatherData.description),
-                                style: const TextStyle(
-                                    fontSize: 22, color: Colors.white),
-                              ),
+                                  capitalizeFirstLetters(
+                                      weatherData.description),
+                                  style:
+                                      TextStyleConst.descriptionLabelTextStyle),
                               const SizedBox(height: 40),
                               Row(
                                 mainAxisAlignment:
