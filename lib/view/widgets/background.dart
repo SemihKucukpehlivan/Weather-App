@@ -8,9 +8,15 @@ class BackgroundWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Image.asset(
-      _getBackgroundImage(),
-      fit: BoxFit.cover,
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        Image.asset(
+          _getBackgroundImage(),
+          fit: BoxFit.cover,
+          opacity: const AlwaysStoppedAnimation<double>(0.7),
+        ),
+      ],
     );
   }
 
@@ -18,11 +24,14 @@ class BackgroundWidget extends StatelessWidget {
     switch (weatherData!.main) {
       case 'Clouds':
         return 'assets/images/cloud.png';
-      case 'Clear':
-        return 'assets/images/nem.png';
-      // Diğer durumları buraya ekleyin
+      case 'Snow':
+        return 'assets/images/winter.png';
+      case 'Sunny':
+        return 'assets/images/summer.png';
+      case 'Rain':
+        return 'assets/images/rain.png';
       default:
-        return 'assets/images/sunny.png';
+        return 'assets/images/summer.png';
     }
   }
 }

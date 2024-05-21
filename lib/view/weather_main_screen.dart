@@ -16,7 +16,7 @@ class WeatherMainScreen extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: const Color.fromARGB(206, 10, 5, 59),
+        backgroundColor: Colors.black,
         body: Consumer<WeatherProvider>(
           builder: (context, provider, _) {
             if (provider.weatherData == null) {
@@ -24,7 +24,6 @@ class WeatherMainScreen extends StatelessWidget {
             } else {
               final weatherData = provider.weatherData;
               return Stack(
-                fit: StackFit.expand,
                 children: [
                   BackgroundWidget(weatherData: weatherData),
                   Padding(
