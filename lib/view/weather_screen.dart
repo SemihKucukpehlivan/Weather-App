@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_app/providers/weather_provider.dart';
-import 'package:weather_app/view/weather_details_screen.dart';
+import 'package:weather_app/view/weather_main_screen.dart';
 
 class WeatherScreen extends StatelessWidget {
   WeatherScreen({Key? key}) : super(key: key);
@@ -28,7 +28,8 @@ class WeatherScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => WeatherDetailScreen()),
+                    builder: (context) => WeatherMainScreen(),
+                  ),
                 );
               },
               child: const Text("Get City"),

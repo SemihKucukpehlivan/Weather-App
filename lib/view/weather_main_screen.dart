@@ -4,16 +4,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_app/providers/weather_provider.dart';
+import 'package:weather_app/service/weather_service.dart';
 import 'package:weather_app/view/widgets/background.dart';
 
-class WeatherMainScreen extends StatelessWidget {
+class WeatherMainScreen extends StatefulWidget {
   const WeatherMainScreen({super.key});
+
+  @override
+  State<WeatherMainScreen> createState() => _WeatherMainScreenState();
+}
+
+class _WeatherMainScreenState extends State<WeatherMainScreen> {
+  @override
+  void initState() {
+    super.initState();
+    final weatherProvider =
+        Provider.of<WeatherProvider>(context, listen: false);
+    WeatherAppService().fetchWeather(context, weatherProvider.city!);
+  }
 
   @override
   Widget build(BuildContext context) {
     final weatherProvider = Provider.of<WeatherProvider>(context);
     final city = weatherProvider.city;
-
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.black,
