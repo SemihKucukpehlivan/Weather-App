@@ -3,14 +3,16 @@ class WeatherData {
   final int humidity;
   final double windSpeed;
   final String description;
-  final String? icon; // Yeni eklenen ikon alanı
+  final String? main;
+  final String? icon;
 
   WeatherData({
     required this.temperature,
     required this.humidity,
     required this.windSpeed,
     required this.description,
-    required this.icon, // Yeni eklenen ikon alanı
+    required this.main,
+    required this.icon,
   });
 
   factory WeatherData.fromJson(Map<String, dynamic> json) {
@@ -19,7 +21,23 @@ class WeatherData {
       humidity: json['main']['humidity'],
       windSpeed: json['wind']['speed'],
       description: json['weather'][0]['description'],
+      main: json['weather'][0]['main'],
       icon: json['weather'][0]['icon'],
     );
+  }
+
+  // İkonu belirleyen metot
+  String get localIcon {
+    switch (icon) {
+      case '01d':
+        return 'assets/icons/güneşli.png';
+      case '04d':
+        return 'assets/icons/bulutlu.png';
+      case '03n':
+        return 'assets/icons/03n.png';
+      // Diğer durumları buraya ekleyin
+      default:
+        return 'assets/icons/default.png';
+    }
   }
 }

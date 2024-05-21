@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_app/providers/weather_provider.dart';
+import 'package:weather_app/view/widgets/background.dart';
 
 class WeatherMainScreen extends StatelessWidget {
   const WeatherMainScreen({super.key});
@@ -15,66 +16,71 @@ class WeatherMainScreen extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color.fromARGB(206, 10, 5, 59),
+        backgroundColor: const Color.fromARGB(206, 10, 5, 59),
         body: Consumer<WeatherProvider>(
           builder: (context, provider, _) {
             if (provider.weatherData == null) {
               return const Center(child: CircularProgressIndicator());
             } else {
               final weatherData = provider.weatherData;
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      city!,
-                      style: const TextStyle(fontSize: 38, color: Colors.white),
-                    ),
-                    Center(
-                      child: Column(
-                        children: [
-                          Image.asset("assets/images/sunny.png",
-                              width: MediaQuery.of(context).size.width * 0.7,
-                              fit: BoxFit.cover),
-                          /* Image.network(
-                            'https://openweathermap.org/img/wn/${weatherData!.icon}@2x.png',
-                            width: MediaQuery.of(context).size.width,
-                            fit: BoxFit.cover,
-                          ), */
-                          Text(
-                            ' ${weatherData!.temperature.truncate()}°',
-                            style: const TextStyle(
-                                fontSize: 100,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            capitalizeFirstLetters(weatherData.description),
-                            style: const TextStyle(
-                                fontSize: 22, color: Colors.white),
-                          ),
-                          const SizedBox(height: 25),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+              return Stack(
+                fit: StackFit.expand,
+                children: [
+                  BackgroundWidget(weatherData: weatherData),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          city!,
+                          style: const TextStyle(
+                              fontSize: 38, color: Colors.white),
+                        ),
+                        Center(
+                          child: Column(
                             children: [
-                              _buildBlurCard(
-                                  content:
-                                      Text('Nem\n ${weatherData.humidity}%'),
-                                  image: "assets/images/wing.png"),
-                              _buildBlurCard(
-                                content: Text(
-                                    'Rüzgar Hızı\n  ${weatherData.windSpeed} m/s'),
-                                image: "assets/images/nem.png",
+                              Image.network(
+                                'https://openweathermap.org/img/wn/${weatherData!.icon}@2x.png',
+                                width: MediaQuery.of(context).size.width * 0.65,
+                                fit: BoxFit.cover,
                               ),
+                              Text(
+                                ' ${weatherData.temperature.truncate()}°',
+                                style: const TextStyle(
+                                    fontSize: 90,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                capitalizeFirstLetters(weatherData.description),
+                                style: const TextStyle(
+                                    fontSize: 22, color: Colors.white),
+                              ),
+                              const SizedBox(height: 40),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  _buildBlurCard(
+                                      content: Text(
+                                          'Nem\n ${weatherData.humidity}%'),
+                                      image: "assets/images/wing.png"),
+                                  _buildBlurCard(
+                                    content: Text(
+                                        'Rüzgar Hızı\n  ${weatherData.windSpeed} m/s'),
+                                    image: "assets/images/nem.png",
+                                  ),
+                                ],
+                              )
                             ],
-                          )
-                        ],
-                      ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               );
             }
           },
