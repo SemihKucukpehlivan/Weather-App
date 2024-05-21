@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_app/providers/weather_provider.dart';
 import 'package:weather_app/service/weather_service.dart';
+import 'package:weather_app/view/weather_main_screen.dart';
 
 class WeatherDetailScreen extends StatefulWidget {
   @override
@@ -33,13 +34,22 @@ class _WeatherDetailScreenState extends State<WeatherDetailScreen> {
             return Column(
               children: [
                 Text('Şehir: ${city}'),
-                Text('Sıcaklık: ${weatherData!.temperature}°C'),
+                Text('Sıcaklık: ${weatherData!.temperature}°C',),
                 Text('Nem: ${weatherData.humidity}%'),
                 Text('Rüzgar Hızı: ${weatherData.windSpeed} m/s'),
                 Text('Açıklama: ${weatherData.description}'),
                 Image.network(
                     'https://openweathermap.org/img/wn/${weatherData.icon}@2x.png'),
-                    
+                ElevatedButton(
+                  child: Text("Git"),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => WeatherMainScreen()),
+                    );
+                  },
+                ),
               ],
             );
           }

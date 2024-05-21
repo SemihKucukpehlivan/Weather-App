@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => WeatherProvider(),
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         home: WeatherScreen(),
       ),
     );
