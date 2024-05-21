@@ -1,11 +1,12 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_app/providers/weather_provider.dart';
 import 'package:weather_app/service/weather_service.dart';
 import 'package:weather_app/view/widgets/background.dart';
+import 'package:weather_app/view/widgets/blur_card.dart';
+import 'package:weather_app/view/widgets/weather_icon.dart';
 
 class WeatherMainScreen extends StatefulWidget {
   const WeatherMainScreen({super.key});
@@ -53,10 +54,8 @@ class _WeatherMainScreenState extends State<WeatherMainScreen> {
                         Center(
                           child: Column(
                             children: [
-                              Image.network(
-                                'https://openweathermap.org/img/wn/${weatherData!.icon}@2x.png',
-                                width: MediaQuery.of(context).size.width * 0.65,
-                                fit: BoxFit.cover,
+                              WeatherIconWidget(
+                                iconUrl: '${weatherData!.icon}',
                               ),
                               Text(
                                 ' ${weatherData.temperature.truncate()}°',
@@ -75,14 +74,14 @@ class _WeatherMainScreenState extends State<WeatherMainScreen> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: [
-                                  _buildBlurCard(
+                                  BlurCard(
                                       content: Text(
                                           'Nem\n ${weatherData.humidity}%'),
-                                      image: "assets/images/wing.png"),
-                                  _buildBlurCard(
+                                      image: "wing.png"),
+                                  BlurCard(
                                     content: Text(
                                         'Rüzgar Hızı\n  ${weatherData.windSpeed} m/s'),
-                                    image: "assets/images/nem.png",
+                                    image: "nem.png",
                                   ),
                                 ],
                               )
@@ -110,30 +109,5 @@ class _WeatherMainScreenState extends State<WeatherMainScreen> {
         return '';
       }
     }).join(' ');
-  }
-
-  Widget _buildBlurCard({required Widget content, required String image}) {
-    return Container(
-      width: 125,
-      height: 175,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(18),
-        color: Colors.white.withOpacity(0.7),
-      ),
-      margin: const EdgeInsets.all(8),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Image.asset(
-            image,
-            width: 75,
-            height: 75,
-          ),
-          const SizedBox(height: 10),
-          content,
-        ],
-      ),
-    );
   }
 }
