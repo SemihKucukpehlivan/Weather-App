@@ -13,4 +13,24 @@ class TextStyleConst {
     fontSize: 22,
     color: Colors.white,
   );
+
+  // Weather main screen city
+  static const TextStyle cityLabelTextStyle = TextStyle(
+    fontSize: 45,
+    color: Colors.white,
+  );
+
+  // Blur card widget text style
+  static const TextStyle blurCardTextStyle = TextStyle(
+    fontSize: 15,
+    color: Colors.black,
+    fontWeight: FontWeight.bold,
+  );
+
+  // See more button text style
+  static const TextStyle seeMoreButtonTextStyle = TextStyle(
+    fontSize: 18,
+    color: Colors.white,
+    fontWeight: FontWeight.w500,
+  );
 }

@@ -9,8 +9,8 @@ class WeatherIconWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Image.network(
       'https://openweathermap.org/img/wn/${iconUrl}@2x.png',
-      width: MediaQuery.of(context).size.width * 0.65,
-      fit: BoxFit.cover,
+      width: MediaQuery.of(context).size.width * 0.60,
+      fit: BoxFit.contain,
     );
   }
 }

@@ -5,6 +5,7 @@ import 'package:weather_app/service/weather_service.dart';
 import 'package:weather_app/view/constants/text_style_const.dart';
 import 'package:weather_app/view/widgets/background.dart';
 import 'package:weather_app/view/widgets/blur_card.dart';
+import 'package:weather_app/view/widgets/see_more_button.dart';
 import 'package:weather_app/view/widgets/weather_icon.dart';
 
 class WeatherMainScreen extends StatefulWidget {
@@ -41,46 +42,62 @@ class _WeatherMainScreenState extends State<WeatherMainScreen> {
                   BackgroundWidget(weatherData: weatherData),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 12),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(city!, style: TextStyleConst.cityLabelTextStyle),
-                        Center(
-                          child: Column(
-                            children: [
-                              WeatherIconWidget(
-                                iconUrl: '${weatherData!.icon}',
-                              ),
-                              Text(
-                                ' ${weatherData.temperature.truncate()}°',
-                                style: TextStyleConst.temperatureLabelTextStyle,
-                              ),
-                              Text(
-                                  capitalizeFirstLetters(
-                                      weatherData.description),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          // City Name
+                          Text(city!, style: TextStyleConst.cityLabelTextStyle),
+
+                          // Weather Icon, Temperature, Description
+                          Center(
+                            child: Column(
+                              children: [
+                                WeatherIconWidget(
+                                  iconUrl: '${weatherData!.icon}',
+                                ),
+                                Text(
+                                  ' ${weatherData.temperature.truncate()}°',
                                   style:
-                                      TextStyleConst.descriptionLabelTextStyle),
-                              const SizedBox(height: 40),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  BlurCard(
+                                      TextStyleConst.temperatureLabelTextStyle,
+                                ),
+                                Text(
+                                    capitalizeFirstLetters(
+                                        weatherData.description),
+                                    style: TextStyleConst
+                                        .descriptionLabelTextStyle),
+                                const SizedBox(height: 20),
+
+                                //Humidity and Wind speed
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    BlurCard(
+                                        content: Text(
+                                          'Nem\n ${weatherData.humidity}%',
+                                          style:
+                                              TextStyleConst.blurCardTextStyle,
+                                        ),
+                                        image: "wind.png"),
+                                    BlurCard(
                                       content: Text(
-                                          'Nem\n ${weatherData.humidity}%'),
-                                      image: "wing.png"),
-                                  BlurCard(
-                                    content: Text(
-                                        'Rüzgar Hızı\n  ${weatherData.windSpeed} m/s'),
-                                    image: "nem.png",
-                                  ),
-                                ],
-                              )
-                            ],
+                                        'Rüzgar Hızı\n  ${weatherData.windSpeed} m/s',
+                                        style: TextStyleConst.blurCardTextStyle,
+                                      ),
+                                      image: "nem.png",
+                                    ),
+                                  ],
+                                ),
+
+                                // See more button
+                                const SeeMoreButton(),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ],
