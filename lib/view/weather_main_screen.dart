@@ -4,9 +4,10 @@ import 'package:weather_app/providers/weather_provider.dart';
 import 'package:weather_app/service/weather_service.dart';
 import 'package:weather_app/view/constants/text_style_const.dart';
 import 'package:weather_app/view/helper/string_helper.dart';
+import 'package:weather_app/view/weather_deatils_screen.dart';
 import 'package:weather_app/view/widgets/background.dart';
 import 'package:weather_app/view/widgets/blur_card.dart';
-import 'package:weather_app/view/widgets/see_more_button.dart';
+import 'package:weather_app/view/widgets/global_button.dart';
 import 'package:weather_app/view/widgets/weather_icon.dart';
 
 class WeatherMainScreen extends StatefulWidget {
@@ -89,9 +90,11 @@ class _WeatherMainScreenState extends State<WeatherMainScreen> {
                                   ),
                                 ],
                               ),
-
                               // See more button
-                              const SeeMoreButton(),
+                              MainElevatedButton(
+                                txt: "See More",
+                                widget: WeatherDetailsScreen(),
+                              ),
                             ],
                           ),
                         ),

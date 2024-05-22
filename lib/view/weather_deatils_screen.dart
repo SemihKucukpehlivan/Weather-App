@@ -7,18 +7,21 @@ import 'package:provider/provider.dart';
 import 'package:weather_app/model/weather_model.dart';
 import 'package:weather_app/providers/weather_provider.dart';
 import 'package:weather_app/view/constants/text_style_const.dart';
+import 'package:weather_app/view/helper/format_date.dart';
 import 'package:weather_app/view/helper/string_helper.dart';
+import 'package:weather_app/view/weather_screen.dart';
 import 'package:weather_app/view/widgets/background.dart';
+import 'package:weather_app/view/widgets/global_button.dart';
 import 'package:weather_app/view/widgets/weather_icon.dart';
 
-class WeatherSeeMoreScreen extends StatefulWidget {
-  const WeatherSeeMoreScreen({super.key});
+class WeatherDetailsScreen extends StatefulWidget {
+  const WeatherDetailsScreen({super.key});
 
   @override
-  State<WeatherSeeMoreScreen> createState() => _WeatherSeeMoreScreenState();
+  State<WeatherDetailsScreen> createState() => _WeatherDetailsScreenState();
 }
 
-class _WeatherSeeMoreScreenState extends State<WeatherSeeMoreScreen> {
+class _WeatherDetailsScreenState extends State<WeatherDetailsScreen> {
   @override
   void initState() {
     super.initState();
@@ -43,7 +46,7 @@ class _WeatherSeeMoreScreenState extends State<WeatherSeeMoreScreen> {
             children: [
               BackgroundWidget(weatherData: weatherData),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 65),
+                padding: const EdgeInsets.symmetric(vertical: 35),
                 child: Column(
                   children: [
                     // Weather Icon, name, description, temperature
@@ -58,6 +61,11 @@ class _WeatherSeeMoreScreenState extends State<WeatherSeeMoreScreen> {
                     // Information
                     const SizedBox(height: 8),
                     forecastList(weatherProvider),
+                    const SizedBox(height: 8),
+                    MainElevatedButton(
+                      txt: "Return to Home Page",
+                      widget: WeatherScreen(),
+                    ),
                   ],
                 ),
               ),
@@ -196,43 +204,66 @@ class _WeatherSeeMoreScreenState extends State<WeatherSeeMoreScreen> {
     WeatherProvider weatherProvider,
   ) {
     return SizedBox(
-      height: 200,
+      height: 225,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: List.generate(3, (index) {
           //Progress Indicator ekle
           final weather = weatherProvider.weatherList[index];
-          final formattedDate = formatDate(weather.date);
+          final formattedDayAndMonth =
+              FormatDate.formatDayAndMonth(weather.date);
+          final formattedWeekday = FormatDate.formatWeekday(weather.date);
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Container(
               width: MediaQuery.of(context).size.width * 0.29,
               decoration: BoxDecoration(
-                color: Colors.white38,
-                borderRadius: BorderRadius.circular(34),
-              ),
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  WeatherIconWidget(iconUrl: '${weather.icon}', iconWidth: 55),
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Text(formattedDate,
-                        style: TextStyleConst.formattedDate),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    '${weather.temperature}°C',
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    StringHelper.capitalizeFirstLetters(
-                      weather.description,
+                  color: Colors.white70,
+                  borderRadius: BorderRadius.circular(14),
+                  border: Border.all()),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(14),
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 100, sigmaY: 100),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(formattedWeekday,
+                                  style: TextStyleConst
+                                      .formattedDateLabelTextStyle),
+                              Text(formattedDayAndMonth,
+                                  style: TextStyleConst.formattedDateTextStyle),
+                            ],
+                          ),
+                        ),
+                        WeatherIconWidget(
+                          iconUrl: '${weather.icon}',
+                          iconWidth: 75,
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          '${weather.temperature}°C',
+                          style: TextStyleConst.forecastTemperatureTextStyle,
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          StringHelper.capitalizeFirstLetters(
+                            weather.description,
+                          ),
+                          maxLines: 1,
+                          style: TextStyleConst.forecastDescriptionTextStyle,
+                        ),
+                      ],
                     ),
                   ),
-                ],
+                ),
               ),
             ),
           );
@@ -240,14 +271,4 @@ class _WeatherSeeMoreScreenState extends State<WeatherSeeMoreScreen> {
       ),
     );
   }
-}
-
-String formatDate(DateTime date) {
-  String day = date.day
-      .toString()
-      .padLeft(2, '0'); // Gün değeri, iki haneli olacak şekilde
-  String month = date.month
-      .toString()
-      .padLeft(2, '0'); // Ay değeri, iki haneli olacak şekilde
-  return '$day-$month';
 }

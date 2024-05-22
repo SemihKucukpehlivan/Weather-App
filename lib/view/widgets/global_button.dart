@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/view/constants/text_style_const.dart';
-import 'package:weather_app/view/see_more_screen.dart';
 
-class SeeMoreButton extends StatelessWidget {
-  const SeeMoreButton({super.key});
+// ignore: must_be_immutable
+class MainElevatedButton extends StatelessWidget {
+  String txt;
+  Widget widget;
+  MainElevatedButton({required this.txt, required this.widget, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,18 +16,17 @@ class SeeMoreButton extends StatelessWidget {
         height: 45,
         child: ElevatedButton(
           onPressed: () {
-            print("Daha fazla tıklandı");
-            Navigator.of(context).push(
+            Navigator.of(context).pushReplacement(
               MaterialPageRoute(
-                builder: (context) => WeatherSeeMoreScreen(),
+                builder: (context) => widget,
               ),
             );
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.orange,
           ),
-          child: const Text(
-            "Daha Fazla",
+          child: Text(
+            txt,
             style: TextStyleConst.seeMoreButtonTextStyle,
           ),
         ),
