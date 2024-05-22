@@ -30,7 +30,7 @@ class WeatherData {
   String get localIcon {
     switch (icon) {
       case '01d':
-        return 'assets/icons/güneşli.png';
+        return 'assets/icons/günesli.png';
       case '04d':
         return 'assets/icons/bulutlu.png';
       case '03n':

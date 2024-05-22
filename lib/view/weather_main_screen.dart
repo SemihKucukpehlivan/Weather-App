@@ -49,7 +49,6 @@ class _WeatherMainScreenState extends State<WeatherMainScreen> {
                       children: [
                         // City Name
                         Text(city!, style: TextStyleConst.cityLabelTextStyle),
-
                         // Weather Icon, Temperature, Description
                         Center(
                           child: Column(
