@@ -33,4 +33,11 @@ class TextStyleConst {
     color: Colors.white,
     fontWeight: FontWeight.w500,
   );
+
+  // See more screen temperature
+  static const TextStyle temperatureLabelTextStyle2 = TextStyle(
+    fontSize: 60,
+    color: Colors.white,
+    fontWeight: FontWeight.bold,
+  );
 }

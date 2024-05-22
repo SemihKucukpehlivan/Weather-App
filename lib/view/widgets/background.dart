@@ -31,7 +31,7 @@ class BackgroundWidget extends StatelessWidget {
       case 'Rain':
         return 'assets/images/rain.png';
       default:
-        return 'assets/images/summer.png';
+        return 'assets/images/rain.png';
     }
   }
 }

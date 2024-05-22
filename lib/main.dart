@@ -12,9 +12,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => WeatherProvider(),
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: WeatherScreen(),
+      child: SafeArea(
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: WeatherScreen(),
+        ),
       ),
     );
   }
