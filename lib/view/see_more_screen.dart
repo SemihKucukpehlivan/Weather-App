@@ -47,11 +47,14 @@ class _WeatherSeeMoreScreenState extends State<WeatherSeeMoreScreen> {
                       padding: const EdgeInsets.all(8.0),
                       child: WheaterCard(weatherData, context, city),
                     ),
-                    // Description GridView (consider revising or removing if not necessary)
+                    const SizedBox(height: 20),
+                    // Details
                     Expanded(
-                      child: WheaterDetails(city, weatherData),
+                      child: weatherDetails(city, weatherData),
                     ),
-
+                    const SizedBox(height: 20),
+                    // Information
+                    const SizedBox(height: 8),
                     ForecastList(weatherProvider),
                   ],
                 ),
@@ -63,44 +66,59 @@ class _WeatherSeeMoreScreenState extends State<WeatherSeeMoreScreen> {
     );
   }
 
-  Padding WheaterDetails(String? city, WeatherData? weatherData) {
+  Padding weatherDetails(String? city, WeatherData? weatherData) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 12),
       child: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _buildInformationWidget(
-                  weatherData, '${weatherData!.windSpeed}', "Wind")
-            ],
-          )
+          _buildInformationWidget(
+            weatherData,
+            '${weatherData!.windSpeed} km/h',
+            "Rüzgar",
+            Icons.wind_power_outlined,
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          _buildInformationWidget(
+            weatherData,
+            '${weatherData.humidity} %',
+            "Nem",
+            Icons.water_drop,
+          ),
         ],
       ),
     );
   }
 
   Expanded _buildInformationWidget(
-      WeatherData? weatherData, String value, String title) {
+      WeatherData? weatherData, String value, String title, IconData icon) {
     return Expanded(
       child: Container(
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(24), color: Colors.white54),
+            borderRadius: BorderRadius.circular(24), color: Colors.white38),
         child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Column(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                Icon(
+                  icon,
+                  size: 50,
+                ),
+                const SizedBox(width: 10),
+                Column(
                   children: [
-                    const Icon(Icons.wind_power_outlined),
                     Text(
                       title,
-                      style: const TextStyle(fontSize: 25),
+                      style: TextStyleConst.informationLabelTextStyle,
                     ),
+                    Text(
+                      value,
+                      style: TextStyleConst.informationValueLabelTextStyle,
+                    )
                   ],
                 ),
-                Text('$value km/h')
               ],
             )),
       ),
@@ -118,7 +136,7 @@ class _WeatherSeeMoreScreenState extends State<WeatherSeeMoreScreen> {
         children: [
           WeatherIconWidget(
             iconUrl: '${weatherData!.icon}',
-            iconWidth: MediaQuery.of(context).size.width * 0.45,
+            iconWidth: MediaQuery.of(context).size.width * 0.50,
           ),
           Column(
             children: [
@@ -127,25 +145,15 @@ class _WeatherSeeMoreScreenState extends State<WeatherSeeMoreScreen> {
                 style: TextStyleConst.temperatureLabelTextStyle2,
               ),
               Text(
-                StringHelper.capitalizeFirstLetters(
-                  (city!),
-                ),
-                style: const TextStyle(
-                  color: Colors.black87,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+                  StringHelper.capitalizeFirstLetters(
+                    (city!),
+                  ),
+                  style: TextStyleConst.cityNameLabelTextStyle),
               Text(
-                StringHelper.capitalizeFirstLetters(
-                  (weatherData.description),
-                ),
-                style: const TextStyle(
-                  color: Colors.black87,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+                  StringHelper.capitalizeFirstLetters(
+                    (weatherData.description),
+                  ),
+                  style: TextStyleConst.descriptionLabelTextStyle2),
             ],
           ),
         ],
@@ -153,17 +161,20 @@ class _WeatherSeeMoreScreenState extends State<WeatherSeeMoreScreen> {
     );
   }
 
-  Expanded ForecastList(WeatherProvider weatherProvider) {
+  Expanded ForecastList(
+    WeatherProvider weatherProvider,
+  ) {
     return Expanded(
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: weatherProvider.weatherList.length,
         itemBuilder: (context, index) {
           final weather = weatherProvider.weatherList[index];
+          final formattedDate = formatDate(weather.date);
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Container(
-              width: 150,
+              width: MediaQuery.of(context).size.width * 0.29,
               decoration: BoxDecoration(
                 color: Colors.white38,
                 borderRadius: BorderRadius.circular(34),
@@ -172,11 +183,14 @@ class _WeatherSeeMoreScreenState extends State<WeatherSeeMoreScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    weather.date.toIso8601String().split('T')[0],
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      formattedDate,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -185,7 +199,9 @@ class _WeatherSeeMoreScreenState extends State<WeatherSeeMoreScreen> {
                     style: const TextStyle(fontSize: 16),
                   ),
                   const SizedBox(height: 8),
-                  Text(weather.description),
+                  Text(
+                    StringHelper.capitalizeFirstLetters(weather.description),
+                  ),
                 ],
               ),
             ),
@@ -193,5 +209,15 @@ class _WeatherSeeMoreScreenState extends State<WeatherSeeMoreScreen> {
         },
       ),
     );
+  }
+
+  String formatDate(DateTime date) {
+    String day = date.day
+        .toString()
+        .padLeft(2, '0'); // Gün değeri, iki haneli olacak şekilde
+    String month = date.month
+        .toString()
+        .padLeft(2, '0'); // Ay değeri, iki haneli olacak şekilde
+    return '$day-$month';
   }
 }

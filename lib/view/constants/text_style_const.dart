@@ -40,4 +40,28 @@ class TextStyleConst {
     color: Colors.black87,
     fontWeight: FontWeight.bold,
   );
+
+  static const TextStyle cityNameLabelTextStyle = TextStyle(
+    fontSize: 32,
+    color: Colors.black,
+    fontWeight: FontWeight.bold,
+  );
+
+  static const TextStyle descriptionLabelTextStyle2 = TextStyle(
+    fontSize: 18,
+    color: Colors.black54,
+    fontWeight: FontWeight.bold,
+  );
+
+  static const TextStyle informationLabelTextStyle = TextStyle(
+    fontSize: 25,
+    color: Colors.black87,
+    fontWeight: FontWeight.bold,
+  );
+
+  static const TextStyle informationValueLabelTextStyle = TextStyle(
+    fontSize: 30,
+    color: Colors.black87,
+    fontWeight: FontWeight.bold,
+  );
 }

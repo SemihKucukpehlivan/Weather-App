@@ -5,10 +5,12 @@ import 'package:weather_app/service/weather_service.dart';
 
 class WeatherProvider with ChangeNotifier {
   WeatherData? _weatherData;
+  WeatherForecast? _weatherForecast;
   String? _city;
   List<WeatherForecast> _weatherList = [];
 
   WeatherData? get weatherData => _weatherData;
+  WeatherForecast? get weatherForecast => _weatherForecast;
   String? get city => _city;
   List<WeatherForecast> get weatherList => _weatherList;
 
