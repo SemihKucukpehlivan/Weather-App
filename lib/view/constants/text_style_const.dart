@@ -15,10 +15,8 @@ class TextStyleConst {
   );
 
   // Weather main screen city
-  static const TextStyle cityLabelTextStyle = TextStyle(
-    fontSize: 45,
-    color: Colors.white,
-  );
+  static const TextStyle cityLabelTextStyle =
+      TextStyle(fontSize: 45, color: Colors.white, fontFamily: 'PoetsenOne');
 
   // Blur card widget text style
   static const TextStyle blurCardTextStyle = TextStyle(
@@ -38,12 +36,6 @@ class TextStyleConst {
   static const TextStyle temperatureLabelTextStyle2 = TextStyle(
     fontSize: 60,
     color: Colors.black87,
-    fontWeight: FontWeight.bold,
-  );
-
-  static const TextStyle cityNameLabelTextStyle = TextStyle(
-    fontSize: 32,
-    color: Colors.black,
     fontWeight: FontWeight.bold,
   );
 

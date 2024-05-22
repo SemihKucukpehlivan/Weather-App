@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_app/model/weather_model.dart';
@@ -55,7 +57,7 @@ class _WeatherSeeMoreScreenState extends State<WeatherSeeMoreScreen> {
                     const SizedBox(height: 20),
                     // Information
                     const SizedBox(height: 8),
-                    ForecastList(weatherProvider),
+                    forecastList(weatherProvider),
                   ],
                 ),
               ),
@@ -132,43 +134,51 @@ class _WeatherSeeMoreScreenState extends State<WeatherSeeMoreScreen> {
         borderRadius: BorderRadius.circular(34),
         color: Colors.white38,
       ),
-      child: Row(
-        children: [
-          WeatherIconWidget(
-            iconUrl: '${weatherData!.icon}',
-            iconWidth: MediaQuery.of(context).size.width * 0.50,
-          ),
-          Column(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(34),
+        child: BackdropFilter(
+          filter:
+              ImageFilter.blur(sigmaX: 400, sigmaY: 400), // Apply blur effect
+          child: Row(
             children: [
-              Text(
-                ' ${weatherData.temperature.truncate()}°',
-                style: TextStyleConst.temperatureLabelTextStyle2,
+              WeatherIconWidget(
+                iconUrl: '${weatherData!.icon}',
+                iconWidth: MediaQuery.of(context).size.width * 0.50,
               ),
-              Text(
-                  StringHelper.capitalizeFirstLetters(
-                    (city!),
+              Column(
+                children: [
+                  Text(
+                    ' ${weatherData.temperature.truncate()}°',
+                    style: TextStyleConst.temperatureLabelTextStyle2,
                   ),
-                  style: TextStyleConst.cityNameLabelTextStyle),
-              Text(
-                  StringHelper.capitalizeFirstLetters(
-                    (weatherData.description),
-                  ),
-                  style: TextStyleConst.descriptionLabelTextStyle2),
+                  Text(
+                      StringHelper.capitalizeFirstLetters(
+                        (city!),
+                      ),
+                      style: TextStyleConst.cityLabelTextStyle),
+                  Text(
+                      StringHelper.capitalizeFirstLetters(
+                        (weatherData.description),
+                      ),
+                      style: TextStyleConst.descriptionLabelTextStyle2),
+                ],
+              ),
             ],
           ),
-        ],
+        ),
       ),
     );
   }
 
-  Expanded ForecastList(
+  Widget forecastList(
     WeatherProvider weatherProvider,
   ) {
-    return Expanded(
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: weatherProvider.weatherList.length,
-        itemBuilder: (context, index) {
+    // Assuming the weatherProvider.weatherList contains at least 3 items
+    return SizedBox(
+      height: 200,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: List.generate(3, (index) {
           final weather = weatherProvider.weatherList[index];
           final formattedDate = formatDate(weather.date);
           return Padding(
@@ -183,6 +193,7 @@ class _WeatherSeeMoreScreenState extends State<WeatherSeeMoreScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  WeatherIconWidget(iconUrl: '${weather.icon}', iconWidth: 55),
                   Align(
                     alignment: Alignment.topLeft,
                     child: Text(
@@ -206,18 +217,18 @@ class _WeatherSeeMoreScreenState extends State<WeatherSeeMoreScreen> {
               ),
             ),
           );
-        },
+        }),
       ),
     );
   }
+}
 
-  String formatDate(DateTime date) {
-    String day = date.day
-        .toString()
-        .padLeft(2, '0'); // Gün değeri, iki haneli olacak şekilde
-    String month = date.month
-        .toString()
-        .padLeft(2, '0'); // Ay değeri, iki haneli olacak şekilde
-    return '$day-$month';
-  }
+String formatDate(DateTime date) {
+  String day = date.day
+      .toString()
+      .padLeft(2, '0'); // Gün değeri, iki haneli olacak şekilde
+  String month = date.month
+      .toString()
+      .padLeft(2, '0'); // Ay değeri, iki haneli olacak şekilde
+  return '$day-$month';
 }

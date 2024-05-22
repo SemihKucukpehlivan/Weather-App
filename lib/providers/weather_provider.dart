@@ -16,6 +16,7 @@ class WeatherProvider with ChangeNotifier {
 
   void setWeatherData(WeatherData weatherData) {
     _weatherData = weatherData;
+    _weatherForecast = weatherForecast;
     notifyListeners();
   }
 
