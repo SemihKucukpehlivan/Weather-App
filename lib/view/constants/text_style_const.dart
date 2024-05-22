@@ -2,11 +2,8 @@ import 'package:flutter/material.dart';
 
 class TextStyleConst {
   // Weather main screen temperature
-  static const TextStyle temperatureLabelTextStyle = TextStyle(
-    fontSize: 90,
-    color: Colors.white,
-    fontWeight: FontWeight.bold,
-  );
+  static const TextStyle temperatureLabelTextStyle =
+      TextStyle(fontSize: 70, color: Colors.white, fontFamily: 'Freeman');
 
   // Weather main screen description
   static const TextStyle descriptionLabelTextStyle = TextStyle(
@@ -15,8 +12,11 @@ class TextStyleConst {
   );
 
   // Weather main screen city
-  static const TextStyle cityLabelTextStyle =
-      TextStyle(fontSize: 45, color: Colors.white, fontFamily: 'PoetsenOne');
+  static const TextStyle cityLabelTextStyle = TextStyle(
+    fontSize: 30,
+    color: Colors.white,
+    fontFamily: 'PoetsenOne',
+  );
 
   // Blur card widget text style
   static const TextStyle blurCardTextStyle = TextStyle(
@@ -32,28 +32,34 @@ class TextStyleConst {
     fontWeight: FontWeight.w500,
   );
 
-  // See more screen temperature
-  static const TextStyle temperatureLabelTextStyle2 = TextStyle(
-    fontSize: 60,
-    color: Colors.black87,
-    fontWeight: FontWeight.bold,
-  );
-
   static const TextStyle descriptionLabelTextStyle2 = TextStyle(
-    fontSize: 18,
+    fontSize: 20,
     color: Colors.black54,
+    fontStyle: FontStyle.italic,
     fontWeight: FontWeight.bold,
   );
 
   static const TextStyle informationLabelTextStyle = TextStyle(
+    fontSize: 18,
+    color: Colors.black,
+    fontWeight: FontWeight.w500,
+  );
+
+  static const TextStyle informationValueLabelTextStyle = TextStyle(
     fontSize: 25,
     color: Colors.black87,
     fontWeight: FontWeight.bold,
   );
 
-  static const TextStyle informationValueLabelTextStyle = TextStyle(
-    fontSize: 30,
-    color: Colors.black87,
+  static const TextStyle informationValueLabelTextStyle2 = TextStyle(
+    fontSize: 14,
+    color: Colors.black54,
     fontWeight: FontWeight.bold,
+  );
+
+  static const TextStyle formattedDate = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.bold,
+    fontFamily: 'PlayFair',
   );
 }

@@ -51,9 +51,7 @@ class _WeatherSeeMoreScreenState extends State<WeatherSeeMoreScreen> {
                     ),
                     const SizedBox(height: 20),
                     // Details
-                    Expanded(
-                      child: weatherDetails(city, weatherData),
-                    ),
+                    weatherDetails(city, weatherData),
                     const SizedBox(height: 20),
                     // Information
                     const SizedBox(height: 8),
@@ -71,59 +69,98 @@ class _WeatherSeeMoreScreenState extends State<WeatherSeeMoreScreen> {
   Padding weatherDetails(String? city, WeatherData? weatherData) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12),
-      child: Column(
-        children: [
-          _buildInformationWidget(
-            weatherData,
-            '${weatherData!.windSpeed} km/h',
-            "Rüzgar",
-            Icons.wind_power_outlined,
+      child: Container(
+        decoration: BoxDecoration(
+            border: Border.all(), borderRadius: BorderRadius.circular(34)),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(34),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 75, sigmaY: 75),
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Column(
+                    children: [
+                      _buildInformationWidget(
+                          weatherData,
+                          '${weatherData!.windSpeed}',
+                          "Rüzgar",
+                          Icons.wind_power_outlined,
+                          'km/h'),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      _buildInformationWidget(
+                          weatherData,
+                          '${weatherData.humidity}',
+                          "Nem",
+                          Icons.water_drop,
+                          '%'),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      _buildInformationWidget(
+                          weatherData,
+                          '${weatherData.windSpeed}',
+                          "Rüzgar",
+                          Icons.wind_power_outlined,
+                          'km/h'),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      _buildInformationWidget(
+                          weatherData,
+                          '${weatherData.humidity}',
+                          "Nem",
+                          Icons.water_drop,
+                          "%"),
+                    ],
+                  )
+                ],
+              ),
+            ),
           ),
-          const SizedBox(
-            height: 8,
-          ),
-          _buildInformationWidget(
-            weatherData,
-            '${weatherData.humidity} %',
-            "Nem",
-            Icons.water_drop,
-          ),
-        ],
+        ),
       ),
     );
   }
 
-  Expanded _buildInformationWidget(
-      WeatherData? weatherData, String value, String title, IconData icon) {
-    return Expanded(
-      child: Container(
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(24), color: Colors.white38),
-        child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  icon,
-                  size: 50,
-                ),
-                const SizedBox(width: 10),
-                Column(
-                  children: [
-                    Text(
-                      title,
-                      style: TextStyleConst.informationLabelTextStyle,
-                    ),
-                    Text(
-                      value,
-                      style: TextStyleConst.informationValueLabelTextStyle,
-                    )
-                  ],
-                ),
-              ],
-            )),
-      ),
+  Widget _buildInformationWidget(WeatherData? weatherData, String value,
+      String title, IconData icon, String text) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              icon,
+              size: 25,
+            ),
+            const SizedBox(width: 3),
+            Text(
+              title,
+              style: TextStyleConst.informationLabelTextStyle,
+            ),
+          ],
+        ),
+        Row(
+          children: [
+            Text(
+              value,
+              style: TextStyleConst.informationValueLabelTextStyle,
+            ),
+            const SizedBox(width: 3),
+            Text(
+              text,
+              style: TextStyleConst.informationValueLabelTextStyle2,
+            ),
+          ],
+        ),
+      ],
     );
   }
 
@@ -149,7 +186,7 @@ class _WeatherSeeMoreScreenState extends State<WeatherSeeMoreScreen> {
                 children: [
                   Text(
                     ' ${weatherData.temperature.truncate()}°',
-                    style: TextStyleConst.temperatureLabelTextStyle2,
+                    style: TextStyleConst.temperatureLabelTextStyle,
                   ),
                   Text(
                       StringHelper.capitalizeFirstLetters(
@@ -179,6 +216,7 @@ class _WeatherSeeMoreScreenState extends State<WeatherSeeMoreScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: List.generate(3, (index) {
+          //Progress Indicator ekle
           final weather = weatherProvider.weatherList[index];
           final formattedDate = formatDate(weather.date);
           return Padding(
@@ -196,13 +234,8 @@ class _WeatherSeeMoreScreenState extends State<WeatherSeeMoreScreen> {
                   WeatherIconWidget(iconUrl: '${weather.icon}', iconWidth: 55),
                   Align(
                     alignment: Alignment.topLeft,
-                    child: Text(
-                      formattedDate,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    child: Text(formattedDate,
+                        style: TextStyleConst.formattedDate),
                   ),
                   const SizedBox(height: 8),
                   Text(
@@ -211,7 +244,9 @@ class _WeatherSeeMoreScreenState extends State<WeatherSeeMoreScreen> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    StringHelper.capitalizeFirstLetters(weather.description),
+                    StringHelper.capitalizeFirstLetters(
+                      weather.description,
+                    ),
                   ),
                 ],
               ),

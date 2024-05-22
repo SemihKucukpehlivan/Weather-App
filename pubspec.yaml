@@ -80,6 +80,14 @@ flutter:
     - family: PoetsenOne
       fonts:
         - asset: assets/fonts/PoetsenOne-Regular.ttf
+
+    - family: PlayFair
+      fonts:
+        - asset: assets/fonts/PlayfairDisplay-Italic-VariableFont_wght.ttf
+
+    - family: Freeman
+      fonts:
+        - asset: assets/fonts/Freeman-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

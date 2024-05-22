@@ -23,7 +23,7 @@ class WeatherAppService {
       Provider.of<WeatherProvider>(context, listen: false)
           .setWeatherData(weatherData);
     } else {
-      throw Exception('Bir hata oluştu.');
+    throw Exception('Bir hata oluştu.');
     }
   }
 
