@@ -40,20 +40,19 @@ class TextStyleConst {
   );
 
   static const TextStyle informationLabelTextStyle = TextStyle(
-    fontSize: 18,
+    fontSize: 15,
     color: Colors.black,
     fontWeight: FontWeight.w500,
   );
 
   static const TextStyle informationValueLabelTextStyle = TextStyle(
-    fontSize: 25,
+    fontSize: 30,
     color: Colors.black87,
     fontWeight: FontWeight.bold,
   );
-
   static const TextStyle informationValueLabelTextStyle2 = TextStyle(
-    fontSize: 14,
-    color: Colors.black54,
+    fontSize: 17,
+    color: Colors.black87,
     fontWeight: FontWeight.bold,
   );
 

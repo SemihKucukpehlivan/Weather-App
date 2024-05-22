@@ -79,13 +79,13 @@ class _WeatherMainScreenState extends State<WeatherMainScreen> {
                                         'Nem\n ${weatherData.humidity}%',
                                         style: TextStyleConst.blurCardTextStyle,
                                       ),
-                                      image: "wind.png"),
+                                      image: "nem.png"),
                                   BlurCard(
                                     content: Text(
                                       'Rüzgar Hızı\n  ${weatherData.windSpeed} m/s',
                                       style: TextStyleConst.blurCardTextStyle,
                                     ),
-                                    image: "nem.png",
+                                    image: "wind.png",
                                   ),
                                 ],
                               ),

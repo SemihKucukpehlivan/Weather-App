@@ -1,6 +1,8 @@
 import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_app/model/weather_model.dart';
 import 'package:weather_app/providers/weather_provider.dart';
@@ -41,7 +43,7 @@ class _WeatherSeeMoreScreenState extends State<WeatherSeeMoreScreen> {
             children: [
               BackgroundWidget(weatherData: weatherData),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 35),
+                padding: const EdgeInsets.symmetric(vertical: 65),
                 child: Column(
                   children: [
                     // Weather Icon, name, description, temperature
@@ -71,101 +73,85 @@ class _WeatherSeeMoreScreenState extends State<WeatherSeeMoreScreen> {
       padding: const EdgeInsets.symmetric(horizontal: 12),
       child: Container(
         decoration: BoxDecoration(
-            border: Border.all(), borderRadius: BorderRadius.circular(34)),
+          border: Border.all(),
+          borderRadius: BorderRadius.circular(34),
+        ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(34),
           child: BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 75, sigmaY: 75),
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Column(
-                    children: [
-                      _buildInformationWidget(
-                          weatherData,
-                          '${weatherData!.windSpeed}',
-                          "Rüzgar",
-                          Icons.wind_power_outlined,
-                          'km/h'),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      _buildInformationWidget(
-                          weatherData,
-                          '${weatherData.humidity}',
-                          "Nem",
-                          Icons.water_drop,
-                          '%'),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      _buildInformationWidget(
-                          weatherData,
-                          '${weatherData.windSpeed}',
-                          "Rüzgar",
-                          Icons.wind_power_outlined,
-                          'km/h'),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      _buildInformationWidget(
-                          weatherData,
-                          '${weatherData.humidity}',
-                          "Nem",
-                          Icons.water_drop,
-                          "%"),
-                    ],
-                  )
-                ],
-              ),
-            ),
+            child: _buildInformationWidget(weatherData),
           ),
         ),
       ),
     );
   }
 
-  Widget _buildInformationWidget(WeatherData? weatherData, String value,
-      String title, IconData icon, String text) {
+  Widget _buildInformationWidget(WeatherData? weatherData) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 18),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          _buildWeatherInfo(
+            icon: Icons.wind_power,
+            value: '${weatherData!.windSpeed}',
+            unit: ' km/h',
+            label: 'Wind Speed',
+          ),
+          _buildWeatherInfo(
+            icon: Icons.water_drop_outlined,
+            value: '${weatherData.humidity}',
+            unit: ' %',
+            label: 'Humidity',
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildWeatherInfo({
+    required IconData icon,
+    required String value,
+    required String unit,
+    required String label,
+  }) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Row(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              icon,
-              size: 25,
-            ),
-            const SizedBox(width: 3),
-            Text(
-              title,
-              style: TextStyleConst.informationLabelTextStyle,
+            Icon(icon, size: 55),
+            Column(
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(value,
+                        style: TextStyleConst.informationValueLabelTextStyle),
+                    if (unit.isNotEmpty)
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 7),
+                        child: Text(unit,
+                            style:
+                                TextStyleConst.informationValueLabelTextStyle2),
+                      ),
+                  ],
+                ),
+                Text(label, style: TextStyleConst.informationLabelTextStyle),
+              ],
             ),
           ],
         ),
-        Row(
-          children: [
-            Text(
-              value,
-              style: TextStyleConst.informationValueLabelTextStyle,
-            ),
-            const SizedBox(width: 3),
-            Text(
-              text,
-              style: TextStyleConst.informationValueLabelTextStyle2,
-            ),
-          ],
-        ),
+        const SizedBox(height: 8),
       ],
     );
   }
 
   Container WheaterCard(
-      WeatherData? weatherData, BuildContext context, String? city) {
+    WeatherData? weatherData,
+    BuildContext context,
+    String? city,
+  ) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(34),
@@ -174,8 +160,7 @@ class _WeatherSeeMoreScreenState extends State<WeatherSeeMoreScreen> {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(34),
         child: BackdropFilter(
-          filter:
-              ImageFilter.blur(sigmaX: 400, sigmaY: 400), // Apply blur effect
+          filter: ImageFilter.blur(sigmaX: 400, sigmaY: 400),
           child: Row(
             children: [
               WeatherIconWidget(
@@ -210,7 +195,6 @@ class _WeatherSeeMoreScreenState extends State<WeatherSeeMoreScreen> {
   Widget forecastList(
     WeatherProvider weatherProvider,
   ) {
-    // Assuming the weatherProvider.weatherList contains at least 3 items
     return SizedBox(
       height: 200,
       child: Row(
