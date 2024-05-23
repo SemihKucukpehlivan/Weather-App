@@ -42,22 +42,26 @@ class _WeatherMainScreenState extends State<WeatherMainScreen> {
               children: [
                 BackgroundWidget(weatherData: weatherData),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                   child: SingleChildScrollView(
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        // City Name
-                        Text(city!, style: TextStyleConst.cityLabelTextStyle),
                         // Weather Icon, Temperature, Description
                         Center(
                           child: Column(
                             children: [
+                              // City Name
+                              Text(
+                                StringHelper.capitalizeFirstLetters(city!),
+                                style: TextStyleConst.cityLabelTextStyle,
+                              ),
                               WeatherIconWidget(
                                 iconUrl: '${weatherData!.icon}',
                                 iconWidth:
-                                    MediaQuery.of(context).size.width * 0.60,
+                                    MediaQuery.of(context).size.width * 0.50,
                               ),
                               Text(
                                 ' ${weatherData.temperature.truncate()}°',
@@ -68,7 +72,7 @@ class _WeatherMainScreenState extends State<WeatherMainScreen> {
                                       weatherData.description),
                                   style:
                                       TextStyleConst.descriptionLabelTextStyle),
-                              const SizedBox(height: 20),
+                              const SizedBox(height: 12),
 
                               //Humidity and Wind speed
                               Row(
@@ -77,23 +81,24 @@ class _WeatherMainScreenState extends State<WeatherMainScreen> {
                                 children: [
                                   BlurCard(
                                       content: Text(
-                                        'Nem\n ${weatherData.humidity}%',
+                                        'Humidity\n    ${weatherData.humidity}%',
                                         style: TextStyleConst.blurCardTextStyle,
                                       ),
                                       image: "nem.png"),
                                   BlurCard(
                                     content: Text(
-                                      'Rüzgar Hızı\n  ${weatherData.windSpeed} m/s',
+                                      'Wind Speed\n  ${weatherData.windSpeed} m/s',
                                       style: TextStyleConst.blurCardTextStyle,
                                     ),
                                     image: "wind.png",
                                   ),
                                 ],
                               ),
+                              const SizedBox(height: 12),
                               // See more button
                               MainElevatedButton(
                                 txt: "See More",
-                                widget: WeatherDetailsScreen(),
+                                widget: const WeatherDetailsScreen(),
                               ),
                             ],
                           ),

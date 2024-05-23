@@ -25,6 +25,7 @@ class WeatherProvider with ChangeNotifier {
     notifyListeners();
   }
 
+//fetch weather forecast data
   Future<void> fetchWeather() async {
     try {
       _weatherList = await WeatherAppService().fetchWeatherForecast(_city!);

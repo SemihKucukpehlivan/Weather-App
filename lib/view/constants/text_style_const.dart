@@ -1,8 +1,33 @@
 import 'package:flutter/material.dart';
 
 class TextStyleConst {
+  // Welcome Screen
+  static const TextStyle welcomeLabelTextStyle = TextStyle(
+    fontSize: 60,
+    color: Colors.white,
+    fontFamily: "PoetsenOne",
+  );
+
+  static const TextStyle toLabelTextStyle = TextStyle(
+    fontSize: 20,
+    color: Colors.white,
+    fontFamily: "PoetsenOne",
+  );
+  static const TextStyle weatherAppLabelTextStyle = TextStyle(
+    fontSize: 40,
+    color: Colors.white,
+    fontFamily: "PoetsenOne",
+  );
+
+  static const TextStyle getCityButtonLabelTextStyle = TextStyle(
+      color: Colors.white,
+      height: 2.1,
+      fontSize: 23,
+      fontWeight: FontWeight.bold);
+
+  // Weather Main Screen
   static const TextStyle temperatureLabelTextStyle = TextStyle(
-    fontSize: 70,
+    fontSize: 80,
     color: Colors.white,
     fontFamily: 'Freeman',
   );
@@ -13,11 +38,16 @@ class TextStyleConst {
   );
 
   static const TextStyle cityLabelTextStyle = TextStyle(
-    fontSize: 30,
+    fontSize: 60,
     color: Colors.white,
     fontFamily: 'PoetsenOne',
   );
-
+  static const TextStyle detailsScreenCityLabelTextStyle = TextStyle(
+    fontSize: 28,
+    color: Colors.white,
+    fontFamily: 'PoetsenOne',
+  );
+// Widgets
   static const TextStyle blurCardTextStyle = TextStyle(
     fontSize: 15,
     color: Colors.black,
@@ -30,6 +60,7 @@ class TextStyleConst {
     fontWeight: FontWeight.w500,
   );
 
+//Weather Details Screen
   static const TextStyle descriptionLabelTextStyle2 = TextStyle(
     fontSize: 20,
     color: Colors.black54,
@@ -49,6 +80,7 @@ class TextStyleConst {
     fontWeight: FontWeight.bold,
   );
 
+// Weather Forecast
   static const TextStyle informationValueLabelTextStyle2 = TextStyle(
     fontSize: 17,
     color: Colors.black87,
