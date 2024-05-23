@@ -57,7 +57,7 @@ class _WeatherDetailsScreenState extends State<WeatherDetailsScreen> {
                     // Information
                     const SizedBox(height: 8),
                     forecastList(weatherProvider),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 20),
                     MainElevatedButton(
                       txt: "Return to Home Page",
                       widget: WeatherScreen(),
