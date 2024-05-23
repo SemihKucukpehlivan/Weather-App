@@ -5,10 +5,9 @@ The app allows users to access weather information for cities around the world. 
 
 A Flutter Application To Discover The Weather Using [WeatherAPI](https://openweathermap.org/)
 
-## Screenshots
-| Main Screen ( Celsius ) | Main Screen ( Fahrenheit ) | Main Screen ( Delete City ) | Main Screen ( Search City ) |
 | :----------------------: | :------------------------: | :------------------------: | :------------------------: |
-| ![Screenshot 1716424012](https://github.com/SemihKucukpehlivan/Weather-App/assets/94116102/08e2e450-e1cf-46b4-b343-ed2e3d8aed0f) | ![Screenshot 1716424592](https://github.com/SemihKucukpehlivan/Weather-App/assets/94116102/ee1c115c-d2e0-41e2-b86a-934aa4fbfc7d) | ![Screenshot 1716424411](https://github.com/SemihKucukpehlivan/Weather-App/assets/94116102/34962150-8f27-4048-819d-6b9ff8ed8650) | ![Screenshot 1716424571](https://github.com/SemihKucukpehlivan/Weather-App/assets/94116102/d69b3428-09d9-4ee5-9693-e39d6731f63d) |
+| <img src="https://github.com/SemihKucukpehlivan/Weather-App/assets/94116102/08e2e450-e1cf-46b4-b343-ed2e3d8aed0f" alt="Screenshot 1716424012" width="200"> | <img src="https://github.com/SemihKucukpehlivan/Weather-App/assets/94116102/ee1c115c-d2e0-41e2-b86a-934aa4fbfc7d" alt="Screenshot 1716424592" width="200"> | <img src="https://github.com/SemihKucukpehlivan/Weather-App/assets/94116102/7bdee506-6883-4851-9aa7-b6ae27de0c78" alt="Screenshot_1716429296" width="200"> | <img src="https://github.com/SemihKucukpehlivan/Weather-App/assets/94116102/d69b3428-09d9-4ee5-9693-e39d6731f63d" alt="Screenshot 1716424571" width="200"> |
+
 
 ## Dependencies
 - [intl](https://pub.dev/packages/intl) - Contains code to deal with date and number formatting and parsing.
